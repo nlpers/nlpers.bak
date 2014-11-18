@@ -86,6 +86,123 @@
   <div class="post-content">
     <header>
       
+        <time datetime="2014-11-18T09:02:18.000Z"><a href="/2014/11/18/Python之lambda/">11月 18 2014</a></time>
+      
+      
+  
+    <h1 class="title"><a href="/2014/11/18/Python之lambda/">Python之lambda</a></h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>Python内置了一些非常有趣但非常有用的函数，充分体现了Python的语言魅力！</p>
+<p><em>filter</em>(function, sequence)：对sequence中的item依次执行function(item)，将执行结果为True的item组成一个List/String/Tuple（取决于sequence的类型）返回：</p>
+<pre><code><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x % <span class="number">2</span> != <span class="number">0</span> <span class="keyword">and</span> x % <span class="number">3</span> != <span class="number">0</span>
+<span class="prompt">&gt;&gt;&gt; </span>filter(f, range(<span class="number">2</span>, <span class="number">25</span>))    
+    [<span class="number">5</span>, <span class="number">7</span>, <span class="number">11</span>, <span class="number">13</span>, <span class="number">17</span>, <span class="number">19</span>, <span class="number">23</span>]
+<span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x != <span class="string">'a'</span> 
+<span class="prompt">&gt;&gt;&gt; </span>filter(f, <span class="string">"abcdef"</span>) 
+    <span class="string">'bcdef'</span>
+</code></pre><p><em>map</em>(function, sequence) ：对sequence中的item依次执行function(item)，见执行结果组成一个List返回：</p>
+<pre><code><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span>:</span> <span class="keyword">return</span> x*x*x 
+<span class="prompt">&gt;&gt;&gt; </span>map(cube, range(<span class="number">1</span>, <span class="number">11</span>)) 
+    [<span class="number">1</span>, <span class="number">8</span>, <span class="number">27</span>, <span class="number">64</span>, <span class="number">125</span>, <span class="number">216</span>, <span class="number">343</span>, <span class="number">512</span>, <span class="number">729</span>, <span class="number">1000</span>]
+<span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">cube</span><span class="params">(x)</span> :</span> <span class="keyword">return</span> x + x 
+    ... 
+<span class="prompt">&gt;&gt;&gt; </span>map(cube , <span class="string">"abcde"</span>) 
+    [<span class="string">'aa'</span>, <span class="string">'bb'</span>, <span class="string">'cc'</span>, <span class="string">'dd'</span>, <span class="string">'ee'</span>]
+</code></pre><p>另外map也支持多个sequence，这就要求function也支持相应数量的参数输入：</p>
+<pre><code><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x, y)</span>:</span> <span class="keyword">return</span> x+y 
+<span class="prompt">&gt;&gt;&gt; </span>map(add, range(<span class="number">8</span>), range(<span class="number">8</span>)) 
+    [<span class="number">0</span>, <span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>, <span class="number">12</span>, <span class="number">14</span>]
+</code></pre><p><em>reduce</em>(function, sequence, starting_value)：对sequence中的item顺序迭代调用function，如果有starting_value，还可以作为初始值调用，例如可以用来对List求和：</p>
+<pre><code><span class="prompt">&gt;&gt;&gt; </span><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(x,y)</span>:</span> <span class="keyword">return</span> x + y 
+<span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>)) 
+    <span class="number">55</span> （注：<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span>+<span class="number">7</span>+<span class="number">8</span>+<span class="number">9</span>+<span class="number">10</span>）
+<span class="prompt">&gt;&gt;&gt; </span>reduce(add, range(<span class="number">1</span>, <span class="number">11</span>), <span class="number">20</span>) 
+    <span class="number">75</span> （注：<span class="number">1</span>+<span class="number">2</span>+<span class="number">3</span>+<span class="number">4</span>+<span class="number">5</span>+<span class="number">6</span>+<span class="number">7</span>+<span class="number">8</span>+<span class="number">9</span>+<span class="number">10</span>+<span class="number">20</span>）
+</code></pre><p><em>lambda</em>：这是Python支持一种有趣的语法，它允许你快速定义单行的最小函数，类似与C语言中的宏，这些叫做lambda的函数，是从LISP借用来的，可以用在任何需要函数的地方： </p>
+<pre><code><span class="input"><span class="prompt">&gt;&gt;&gt;</span> g = lambda <span class="symbol">x:</span> x * <span class="number">2</span> </span>
+<span class="input"><span class="prompt">&gt;&gt;&gt;</span> g(<span class="number">3</span>) </span>
+    <span class="number">6</span> 
+<span class="input"><span class="prompt">&gt;&gt;&gt;</span> (lambda <span class="symbol">x:</span> x * <span class="number">2</span>)(<span class="number">3</span>) </span>
+    <span class="number">6</span>
+</code></pre><p>我们也可以把filter map reduce 和lambda结合起来用，函数就可以简单的写成一行。</p>
+<p><strong>例如:</strong></p>
+<pre><code><span class="prompt">&gt;&gt;&gt; </span>kmpathes = filter(<span class="keyword">lambda</span> kmpath: kmpath, map(<span class="keyword">lambda</span> kmpath: string.strip(kmpath),
+<span class="prompt">&gt;&gt;&gt; </span>string.split(l, <span class="string">':'</span>)))              
+</code></pre><p>看起来麻烦，其实就像用语言来描述问题一样，非常优雅。<br>对 l 中的所有元素以’:’做分割，得出一个列表。对这个列表的每一个元素做字符串strip，形成一个列表。对这个列表的每一个元素做直接返回操作(这个地方可以加上过滤条件限制)，最终获得一个字符串被’:’分割的列表，列表中的每一个字符串都做了strip，并可以对特殊字符串过滤。</p>
+<p>[转] <a href="http://hi.baidu.com/black/item/307001d18715fc322a35c747" target="_blank" rel="external">http://hi.baidu.com/black/item/307001d18715fc322a35c747</a></p>
+<hr>
+<p>lambda表达式返回一个函数对象</p>
+<p><strong>例子：</strong></p>
+<pre><code><span class="input"><span class="prompt">&gt;&gt;&gt;</span> func = lambda x,<span class="symbol">y:</span>x+y</span>
+</code></pre><p>func相当于下面这个函数</p>
+<pre><code><span class="function"><span class="keyword">def</span> <span class="title">func</span><span class="params">(x,y)</span>:</span>
+    <span class="keyword">return</span> x+y
+</code></pre><p>注意def是语句而lambda是表达式。下面这种情况下就只能用lambda而不能用def。</p>
+<pre><code>[(lambda x:x*x)(x) <span class="keyword">for</span> x <span class="keyword">in</span> <span class="type">range</span>(<span class="number">1</span>,<span class="number">11</span>)]
+</code></pre><p>map，reduce，filter中的function都可以用lambda表达式来生成！</p>
+<h3 id="1-_map(function,sequence)">1. <em>map</em>(function,sequence)</h3>
+<p>把sequence中的值当参数逐个传给function，返回一个包含函数执行结果的list。</p>
+<p>如果function有两个参数，即map(function,sequence1,sequence2)。</p>
+<p><strong>例子：</strong></p>
+<p>求1<em>1,2</em>2,3<em>3,4</em>4</p>
+<pre><code><span class="keyword">map</span>(lambda x:x*x,<span class="keyword">range</span>(<span class="number">1</span>,<span class="number">5</span>))
+</code></pre><p>返回值是[1,4,9,16] </p>
+<h3 id="2-_reduce(function,sequence)">2. <em>reduce</em>(function,sequence)</h3>
+<p>function接收的参数个数只能为2</p>
+<p>先把sequence中第一个值和第二个值当参数传给function，再把function的返回值和第三个值当参数传给</p>
+<p>function，然后只返回一个结果。</p>
+<p><strong>例子：</strong></p>
+<p>求1到10的累加</p>
+<pre><code><span class="function">reduce</span>(lambda x,y<span class="value">:x+y,<span class="function">range</span>(<span class="number">1</span>,<span class="number">11</span>))</span>
+</code></pre><p>返回值是55。</p>
+<h3 id="3-_filter(function,sequence)">3. <em>filter</em>(function,sequence)</h3>
+<p>function的返回值只能是True或False</p>
+<p>把sequence中的值逐个当参数传给function，如果function(x)的返回值是True，就把x加到filter的返回值里面。一般来说filter的返回值是list，特殊情况如sequence是string或tuple，则返回值按照sequence的类型。</p>
+<p><strong>例子：</strong></p>
+<p>找出1到10之间的奇数</p>
+<pre><code><span class="keyword">filter</span>(lambda x:x<span class="variable">%2</span>!=<span class="number">0</span>,range(<span class="number">1</span>,<span class="number">11</span>))
+</code></pre><p>返回值</p>
+<p>[1,3,5,7,9]</p>
+<p>如果sequence是一个string</p>
+<p>filter(lambda x:len(x)!=0,’hello’)返回’hello’</p>
+<p>filter(lambda x:len(x)==0,’hello’)返回’’</p>
+<p>[转] <a href="http://blog.csdn.net/myzhan/article/details/7269471" target="_blank" rel="external">http://blog.csdn.net/myzhan/article/details/7269471</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+        
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+  
+    <article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
         <time datetime="2014-11-13T08:44:26.000Z"><a href="/2014/11/13/StreamTokenizer用法/">11月 13 2014</a></time>
       
       
@@ -444,6 +561,8 @@
   <h3 class="title">标签</h3>
   <ul class="entry">
   
+    <li><a href="/tags/Python/">Python</a><small>1</small></li>
+  
     <li><a href="/tags/deep-learning/">deep learning</a><small>1</small></li>
   
     <li><a href="/tags/java/">java</a><small>1</small></li>
@@ -455,6 +574,8 @@
     <li><a href="/tags/recursive-neural-network/">recursive neural network</a><small>1</small></li>
   
     <li><a href="/tags/rnn/">rnn</a><small>2</small></li>
+  
+    <li><a href="/tags/编程/">编程</a><small>1</small></li>
   
   </ul>
 </div>
@@ -471,6 +592,10 @@
 <div class="widget tag">
   <h3 class="title">最新文章</h3>
   <ul class="entry">
+    
+      <li>
+        <a href="/2014/11/18/Python之lambda/">Python之lambda</a>
+      </li>
     
       <li>
         <a href="/2014/11/13/StreamTokenizer用法/">StreamTokenizer用法</a>
@@ -519,7 +644,7 @@
 <div class="widget tagcloud">
   <h3 class="title">标签云</h3>
   <div class="entry">
-    <a href="/tags/deep-learning/" style="font-size: 10.00px;">deep learning</a><a href="/tags/java/" style="font-size: 10.00px;">java</a><a href="/tags/nlp/" style="font-size: 10.00px;">nlp</a><a href="/tags/note/" style="font-size: 20.00px;">note</a><a href="/tags/recursive-neural-network/" style="font-size: 10.00px;">recursive neural network</a><a href="/tags/rnn/" style="font-size: 20.00px;">rnn</a>
+    <a href="/tags/Python/" style="font-size: 10.00px;">Python</a><a href="/tags/deep-learning/" style="font-size: 10.00px;">deep learning</a><a href="/tags/java/" style="font-size: 10.00px;">java</a><a href="/tags/nlp/" style="font-size: 10.00px;">nlp</a><a href="/tags/note/" style="font-size: 20.00px;">note</a><a href="/tags/recursive-neural-network/" style="font-size: 10.00px;">recursive neural network</a><a href="/tags/rnn/" style="font-size: 20.00px;">rnn</a><a href="/tags/编程/" style="font-size: 10.00px;">编程</a>
   </div>
 </div>
 

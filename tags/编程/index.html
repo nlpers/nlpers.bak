@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>归档：2014/11 | nlpers</title>
+  <title>编程 | nlpers</title>
   <meta name="author" content="Liang Jun">
   
   
@@ -65,7 +65,7 @@
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
     <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title">2014/11</h2>
+<h2 class="archive-title tag">编程</h2>
 
 
   
@@ -171,83 +171,6 @@
 <p>filter(lambda x:len(x)!=0,’hello’)返回’hello’</p>
 <p>filter(lambda x:len(x)==0,’hello’)返回’’</p>
 <p>[转] <a href="http://blog.csdn.net/myzhan/article/details/7269471" target="_blank" rel="external">http://blog.csdn.net/myzhan/article/details/7269471</a></p>
-
-      
-    </div>
-    <footer>
-      
-        
-        
-      
-      <div class="clearfix"></div>
-    </footer>
-  </div>
-</article>
-
-
-  
-    <article class="post">
-  
-    <div class="gallery">
-  <div class="photoset">
-    
-      <img src="">
-    
-  </div>
-  <div class="control">
-    <div class="prev"></div>
-    <div class="next"></div>
-  </div>
-</div>
-  
-  <div class="post-content">
-    <header>
-      
-        <time datetime="2014-11-13T08:44:26.000Z"><a href="/2014/11/13/StreamTokenizer用法/">11月 13 2014</a></time>
-      
-      
-  
-    <h1 class="title"><a href="/2014/11/13/StreamTokenizer用法/">StreamTokenizer用法</a></h1>
-  
-
-    </header>
-    <div class="entry">
-      
-        <h1 id="简介">简介</h1>
-<p>StreamTokenizer 类获取输入流并将其解析为“标记”，允许一次读取一个标记。解析过程由一个表和许多可以设置为各种状态的标志控制。该流的标记生成器可以识别标识符、数字、引用的字符串和各种注释样式。 </p>
-<p>从输入流读取的每个字节都被视为一个字符，范围在 ‘\u0000’ 到 ‘\u00FF’ 之间。字符值用于查找该字符的五个可能属性：空白、字母、数字、字符串引号 和注释字符。每个字符都可以有零个或多个这样的属性。 </p>
-<p>另外，一个实例还有四个标志。这些标志指示： </p>
-<ul>
-<li><p>行结束符是作为标记返回，还是被视为仅用于分隔标记的空白。 </p>
-</li>
-<li><p>是标识还是跳过 C 样式注释。 </p>
-</li>
-<li><p>是标识还是跳过 C++ 样式注释。 </p>
-</li>
-</ul>
-<ul>
-<li>是否将标识符的字符转换为小写字母。 </li>
-</ul>
-<p>需要注意的是：</p>
-<ul>
-<li><p>单引号和双引号以及其中的内容，只能算是一个Token。</p>
-</li>
-<li><p>符号“/”不是Token，注释后的内容也不是，而“\”是Token。</p>
-</li>
-</ul>
-<h1 id="主要方法介绍">主要方法介绍</h1>
-<ol>
-<li><p>public void resetSyntax()</p>
-<p> 重置此标记生成器的语法表，使所有字符都成为“普通”字符。</p>
-</li>
-<li><p>public void wordChars(int low, int hi)</p>
-<p> 指定 low &lt;= c &lt;= high 范围中的所有字符 c 都是文字成分。文字标记由一个文字成分后跟零或更多文字成分或数字成分组成。</p>
-</li>
-<li><p>public void whitespaceChars(int low, int hi)</p>
-<p> 指定 low &lt;= c &lt;= high 范围中的所有字符 c 都是空白字符。空白字符仅用于分隔输入流中的标记。 </p>
-<p> 指定范围中字符串的任何其他属性设置都被清除。 </p>
-</li>
-</ol>
 
       
     </div>
